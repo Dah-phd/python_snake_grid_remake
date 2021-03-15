@@ -27,6 +27,7 @@ class snake:
                 int(self.dims[1]/2)
             ))
         self.face = 'up'
+        self.score = 0
         self._make_food()
 
     def run(self):
@@ -87,6 +88,7 @@ class snake:
             return
         if self.snake[0] == self.food:
             self.humgry = True
+            self.score += 10
 
     def _move(self, remove=True):
         self.snake.insert(0, (
