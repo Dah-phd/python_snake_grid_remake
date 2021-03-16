@@ -14,7 +14,7 @@ class highscore:
         high: default is max so the higher the score the better.
         '''
         self.link = sq.connect(base_name)
-        self.cur = link.cursor()
+        self.cur = self.link.cursor()
         self.table = 'scores'
         self.name = name
         self.high = high
@@ -24,7 +24,7 @@ class highscore:
         self.cur.execute(
             "SELECT name FROM sqlite_master WHERE type='table'"
         )
-        if self.table in [t[0] for t in self.cur])
+        if self.table in [t[0] for t in self.cur]:
             return
         else:
             self.cur.execute(
@@ -40,12 +40,12 @@ class highscore:
         self.cur.execute(
             f"SELECT name, score FROM {self.table}"
         )
-        result=[sc for sc in self.cur]
+        result = [sc for sc in self.cur]
         if self.high == 'max':
-            return result.sort(key=itemgetter(1), reverse=True)
+            result.sort(key=itemgetter(1), reverse=True)
         else:
-            return result.sort(key=itemgetter(1))
-        
+            result.sort(key=itemgetter(1))
+        return result
 
     def new_score(self, value):
         name = str(self.name)
@@ -54,3 +54,4 @@ class highscore:
         self.cur.execute(
             f"INSERT INTO {self.table} (name, score) VALUES (?, ?)", (name, value)
         )
+        self.link.commit()

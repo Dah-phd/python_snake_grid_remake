@@ -23,7 +23,7 @@ def scores(val):
 if __name__ == '__main__':
     scores(argv[1])
     dat = input('Press ENTER for new game or Q to exit!')
-    if dat != 'q':
+    if dat != 'q' and dat != 'Q':
         print(platform[:3])
         if platform[:3] == 'win':
             subprocess.Popen('res\\GUI.pyw', shell=True, creationflags=subprocess.DETACHED_PROCESS,
