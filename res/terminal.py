@@ -1,6 +1,8 @@
 import subprocess
 import scoring
 from sys import argv, platform
+if platform == 'linux':
+    from os import setpgrp
 
 
 def scores(val):
@@ -29,5 +31,5 @@ if __name__ == '__main__':
             subprocess.Popen('res\\GUI.pyw', shell=True, creationflags=subprocess.DETACHED_PROCESS,
                              stderr=None, stdin=None, stdout=None, close_fds=True)
         else:
-            subprocess.Popen('python3 ./res/GUI.pyw', shell=True, creationflags=subprocess.DETACHED_PROCESS,
+            subprocess.Popen('python3 ./res/GUI.pyw', shell=True, preexec_fn=setpgrp,
                              stderr=None, stdin=None, stdout=None, close_fds=True)

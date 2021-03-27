@@ -94,9 +94,7 @@ class snake:
         self.snake.insert(0, (
             self.snake[0][0]-1 if self.face == 'up' else
             self.snake[0][0] + 1 if self.face == 'down' else
-            self.snake[0][0],
             self.snake[0][1]-1 if self.face == 'left' else
-            self.snake[0][1] + 1 if self.face == 'right' else
             self.snake[0][1]
         ))
         if remove:

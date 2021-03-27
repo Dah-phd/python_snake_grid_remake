@@ -3,6 +3,8 @@ import snake_logic
 import time
 import subprocess
 from sys import platform
+if platform == 'linux':
+    from os import setpgrp
 
 
 class GUI:
@@ -60,11 +62,11 @@ class GUI:
 
     def end(self):
         if platform[:3] == 'win':
-            cmd = f'res\\terminal.py {self.game.score}'
+            subprocess.Popen(f'res\\terminal.py {self.game.score}', stdin=None, stdout=None, stderr=None, close_fds=True,
+                             shell=True, creationflags=subprocess.DETACHED_PROCESS)
         else:
-            cmd = f'./res/terminal.py {self.game.score}'
-        subprocess.Popen(cmd, stdin=None, stdout=None, stderr=None, close_fds=True,
-                         shell=True, creationflags=subprocess.DETACHED_PROCESS)
+            subprocess.Popen(f'./res/terminal.py {self.game.score}', stdin=None, stdout=None, stderr=None, close_fds=True,
+                             shell=True, preexec_fn=setpgrp)
 
     def timer(self):
         moment = time.time() - self.start
